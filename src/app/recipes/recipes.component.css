@@ -1,42 +1,21 @@
 .card {
-  color: white;
-  margin: .5rem;
+  margin: 5vw auto;
+  max-width: 90vw;
 }
 
-.header-image {
-  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size: cover;
-}
-
-.card-content{
+.action-buttons {
     display: flex;
-    justify-content: space-evenly;
-}
-
-.content-image{
-    max-width: 10rem;
-}
-
-.card-content > p{
-    text-align: center;
-    margin: 0 .5rem;
-    max-width: 35rem;
-}
-
-.mat-mdc-standard-chip{
-    --mdc-chip-elevated-container-color: white;
-    --mdc-chip-label-text-color: black;
+    justify-content: flex-end;
 }
 
 /* For Tablets */
 @media only screen and (min-width: 600px) {
-    
 }
 
 /* For Desktop */
 @media only screen and (min-width: 768px) {
-    .card{
-        max-width: 50rem;
-        margin: .5rem auto;
-    }
+  .card {
+    max-width: 50rem;
+    margin: 0.5rem auto;
+  }
 }

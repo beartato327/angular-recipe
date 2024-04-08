@@ -1,30 +1,26 @@
-<mat-card class="card" *ngFor="let recipe of recipes">
-    <mat-card-header>
-      <div mat-card-avatar class="header-image"></div>
-      <mat-card-title>{{recipe.title}}</mat-card-title>
-      <mat-card-subtitle>
-        <mat-chip-set aria-label="Fish selection">
-            <mat-chip>One fish</mat-chip>
-            <mat-chip>Two fish</mat-chip>
-            <mat-chip color="accent" selected>Accent fish</mat-chip>
-            <mat-chip color="warn">Warn fish</mat-chip>
-          </mat-chip-set>
-      </mat-card-subtitle>
-    </mat-card-header>    
-    <mat-card-content class="card-content">
-        <img class="content-image" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+
+
   <div *ngFor="let recipe of recipes">
-    {{recipe.title}}
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>{{recipe.title}}</mat-card-title>
+        <mat-card-subtitle>{{recipe.tags}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://images.unsplash.com/photo-1524351199678-941a58a3df50?q=80&w=2971&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          {{recipe.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="action-buttons">
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon>share</mat-icon>
+        </button>
+        <button mat-stroked-button>VIEW RECIPE</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
   
