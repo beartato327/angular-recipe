@@ -1,4 +1,57 @@
-<nav>
-    <a class="button" routerLink="/crisis-list">Crisis Center</a> |
-    <a class="button" routerLink="/recipes">Recipes</a>
-</nav>
+@if (error) {
+<div>
+  <p class="error-message">{{ error }}</p>
+</div>
+} @if(isLoading) {
+<div>
+  <mat-spinner class="loading-spinner"></mat-spinner>
+</div>
+}
+<div class="login-container" *ngIf="!isLoading">
+  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+    <h1>{{ isLogin ? "Login" : "Sign Up" }}</h1>
+    <mat-form-field class="input-field">
+      <mat-label>Email</mat-label>
+      <input matInput ngModel name="email" type="email" required email />
+    </mat-form-field>
+    <mat-form-field class="input-field">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        ngModel
+        name="password"
+        type="password"
+        required
+        minlength="6"
+      />
+    </mat-form-field>
+    <div class="button-row">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!authForm['valid']"
+      >
+        {{ isLogin ? "Login" : "Sign Up" }}
+      </button>
+    </div>
+    <div class="button-sub-row">
+      <button
+        mat-button
+        color="primary"
+        type="button"
+        [style]="{ display: isLogin ? 'block' : 'none' }"
+      >
+        Forgot Password
+      </button>
+      <button
+        mat-button
+        color="primary"
+        type="button"
+        (click)="isLogin = !isLogin"
+      >
+        {{ !isLogin ? "Login" : "Sign Up" }}
+      </button>
+    </div>
+  </form>
+</div>

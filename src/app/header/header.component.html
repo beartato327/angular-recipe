@@ -1,5 +1,5 @@
 <mat-toolbar>
     <span class="title">Cut the Bull</span>
     <span class="spacer"></span>
-    <button mat-button>Log In</button>
+    @if(!hasRoute("auth")){<a routerLink="/auth"><button mat-button>Log In</button></a>}
 </mat-toolbar>
