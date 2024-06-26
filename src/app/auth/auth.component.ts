@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -24,7 +24,9 @@ export class AuthComponent {
   error: string = '';
 
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  user = this.authService.user;
 
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -34,11 +36,17 @@ export class AuthComponent {
     const password = form.value.password;
     this.isLoading = true;
     if (this.isLogin) {
-      this.authService.login(email, password);
-      this.isLoading = false;
+      this.authService.login(email, password).then(data => {
+        console.log(data);
+        this.isLoading = false;
+        this.router.navigate(['/recipes']);
+      });
+      
+      console.log(this.authService.currentUser.email)
     } else {
       this.authService.signup(email, password);
       this.isLoading = false;
+      this.router.navigate(['/recipes']);
     }
     form.reset();
   }

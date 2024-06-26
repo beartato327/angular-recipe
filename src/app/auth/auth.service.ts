@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {
   getAuth,
   Auth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from '@angular/fire/auth';
+import { BehaviorSubject } from 'rxjs';
 
-interface AuthResponseData {
+/* interface AuthResponseData {
   kind: string;
   idToken: string;
   email: string;
@@ -15,41 +17,52 @@ interface AuthResponseData {
   expiresIn: string;
   localId: string;
   registered?: boolean;
-}
+} */
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient, private auth: Auth) {}
+  constructor(private auth: Auth) {
+    this.authStatusListener();
+  }
+
+  public currentUser: any= null;
+
+  user = signal('')
+
+
+  authStatusListener() {
+    return this.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.currentUser = user;
+        this.user.set(this.currentUser.email)
+      }
+      else {
+        this.user.set('');
+      }
+    });
+  }
 
   signup(email: string, password: string) {
     return createUserWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
-    /* return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=AIzaSyBBn659p3fUw7M3Yv7bqLhduKJkwQ_1_b0',
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true,
-      }
-    ); */
   }
 
   login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password).then((userCredential) =>{
       const user = userCredential.user;
-      console.log(user);
     }).catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
+  }
+
+  logout() {
+    return this.auth.signOut();
   }
 }

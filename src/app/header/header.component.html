@@ -1,5 +1,31 @@
 <mat-toolbar>
-    <span class="title">Cut the Bull</span>
-    <span class="spacer"></span>
-    @if(!hasRoute("auth")){<a routerLink="/auth"><button mat-button>Log In</button></a>}
+  <span class="title">Cut the Bull</span>
+  <span class="spacer"></span>
+  @if(!hasRoute("auth") && user() === ''){<a routerLink="/auth"
+    ><button mat-button>Log In</button></a
+  >} @if(user() !== ''){
+    <span>Welcome {{user()}}</span>
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Profile dropdown menu"
+  >
+    <mat-icon>arrow_drop_down_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Log Out</span>
+    </button>
+  </mat-menu>
+
+  }
 </mat-toolbar>
